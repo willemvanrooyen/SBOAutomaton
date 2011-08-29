@@ -111,11 +111,11 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
 //
                                                 if ( isActionRequired() ) {
                                                         result  = Result.WARNING;
-                                                        details = generalServices.getLanguageApi().getText( "You need to set your player Id to enable usage." );
+                                                        details = "You need to set your player Id to enable usage.";
                                                 }
                                                 else if ( !generalServices.getInfoApi().isReplayAutoSaveEnabled() ) {
                                                         result  = Result.WARNING;
-                                                        details = generalServices.getLanguageApi().getText( "Auto-save is not enabled, without it, your replays will not be submitted Stacraft 2 Bitcoin Open" );
+                                                        details = "Auto-save is not enabled, without it, your replays will not be submitted Stacraft 2 Bitcoin Open" ;
                                                 }
                                                 else {
                                                         result  = Result.OK;
@@ -146,10 +146,10 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
                                     if ( replay == null )
                                             return; // Failed to parse replay
 
-                                    if(replay.getFormat().equals(Format.ONE_VS_ONE)) //enum From ReplayConsts.Java: ONE_VS_ONE, TWO_VS_TWO, THREE_VS_THREE, FOUR_VS_FOUR, FREE_FOR_ALL, UNKNOWN;
+                                    if(replay.getFormat()==Format.ONE_VS_ONE) //enum From ReplayConsts.Java: ONE_VS_ONE, TWO_VS_TWO, THREE_VS_THREE, FOUR_VS_FOUR, FREE_FOR_ALL, UNKNOWN;
                                     {                                    
                                         //only 1v1 for now, server-side does not yet support team play
-                                        if(!(replay.getGameType().equals(GameType.AMM))) //enum From ReplayConsts.Java: PRIVATE, PUBLIC, AMM, SINGLE_PLAYER, UNKNOWN;
+                                        if(!(replay.getGameType()==GameType.AMM)) //enum From ReplayConsts.Java: PRIVATE, PUBLIC, AMM, SINGLE_PLAYER, UNKNOWN;
                                         {                                        
                                             //we don't want to submit ladder games (AutoMM), for example
                                             //here we start the submission workflow (check if the player is in a tournament, if so then submit etc)
@@ -172,7 +172,7 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
             
              Map< String, String > paramsMap = new HashMap< String, String >();
              paramsMap.put( "MatchKey", matchKey );        
-             paramsMap.put( "playerId", pluginServices.getSettingsApi().getString( KEY_SBO_PLAYERID ).trim() );            
+             paramsMap.put( "playerId", pluginServices.getSettingsApi().getString( KEY_SBO_PLAYERID ));            
             
              String SB2BTCOpenResponse = HTTPPostWrapper(url, paramsMap, replayPath);
              System.out.println( SB2BTCOpenResponse );
@@ -230,11 +230,11 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
             String url = URL_SBO_PROCESSFLOW_ISINTOURNAMENT; 
             Map< String, String > paramsMap = new HashMap< String, String >();
            
-            paramsMap.put( "playerId", pluginServices.getSettingsApi().getString( KEY_SBO_PLAYERID ).trim() );            
+            paramsMap.put( "playerId", pluginServices.getSettingsApi().getString( KEY_SBO_PLAYERID ));            
             //System.out.println( "playerId:" + pluginServices.getSettingsApi().getString( KEY_SBO_PLAYERID ) );
              
             String SB2BTCOpenResponse = HTTPPostWrapper(url, paramsMap, null);
-            //System.out.println( SB2BTCOpenResponse );
+            System.out.println( SB2BTCOpenResponse );
             if (SB2BTCOpenResponse=="")
             {
                 // not expecting this, but just in case
@@ -380,11 +380,12 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
 				row.add( SBOPlayerIdTextField );
                                 //TODO: player validation/test whether the key is working... needs a handler server-side...                                
                                 //row.add( createValidateButton  ( SBOPlayerIdTextField ) );
-				row.add( new JLabel() );
-				row.add( new JLabel() );
+				//row.add( new JLabel() );
+				//row.add( new JLabel() );
 				box.add( row );
 
-				generalServices.getGuiUtilsApi().alignBox( box, 4 );
+                                //only for use with multiple same-size controls
+				//generalServices.getGuiUtilsApi().alignBox( box, 4 );
 				
 				panel.add( box, BorderLayout.CENTER );
 				
@@ -420,7 +421,7 @@ public class SBOAutomatonPlugin extends BasePlugin implements Configurable {
 			
 			@Override
 			public void onOkButtonPressed() {
-				settings.set( KEY_SBO_PLAYERID   , SBOPlayerIdTextField  .getText() );
+				settings.set( KEY_SBO_PLAYERID   , SBOPlayerIdTextField  .getText().trim() );
 			}
 		};
 	}
