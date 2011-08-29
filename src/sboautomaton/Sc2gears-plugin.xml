@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Plugin descriptor, contains plugin meta-data. -->
+<plugin docVersion="1.0">
+	
+	<name>SC2BTC Automaton</name>
+	
+	<authorFirstName>Starcraft 2 Bitcoin Open</authorFirstName>
+	<authorLastName></authorLastName>
+        <!-- Dual-Authored: Mehdi Ahmadi & Willem van Rooyen -->
+        
+	<authorEmail>info@sc2btc.com</authorEmail>
+	
+	<version>0.0.1</version> 
+	<releaseDate>2011-08-29</releaseDate> <!-- Format: "yyyy-MM-dd" -->
+	
+	<apiVersion>2.3</apiVersion> <!-- Plugin API version implemented/used by the plugin. -->
+	
+	<homePage>http://sc2btc.com</homePage>
+	
+	<!-- Description can be plain text or HTML text, can contain multiple lines. -->
+	<description isHtml="true"><![CDATA[
+        <body bgcolor="black">
+		<p color="white"><b>Starcraft 2 Bitcoin Open</b> </p>
+                <img src="http://sc2btcopen.appspot.com/images/sboautomatonlogo.png" alt="Starcraft 2 Bitcoin Open" >
+                <p color="white"><b>create your own prizepool</b> </p>
+                </body>
+                "                
+	]]></description>
+	
+	<!--
+		The main class must implement the "hu.belicza.andras.sc2gearspluginapi.Plugin" interface,
+		and must have a public no-arg constructor (a constructor that takes no arguments).
+		
+		The main class must also be unique: cannot be added 2 plugins with the same main class!
+	-->
+	<mainClass>sboautomaton.SBOAutomatonPlugin</mainClass>
+	
+</plugin>
